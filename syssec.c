@@ -8,6 +8,7 @@
  */
 
 #include "syssec.h"
+#include "parser.h"
 
 /* ============================================================
  * GLOBAL STATE
@@ -1618,3 +1619,44 @@ int main(int argc, char **argv) {
     
     return ret;
 }
+
+void syssec_report_add(syssec_t *s, const char *category, const char *name, const char *desc,
+                        severity_t sev, status_t status, const char *rec)
+{
+    add_result(s, category, name, desc, sev, status, rec);
+}
+
+/* ============================================================
+ * CHECK: Deep Tree Parse + Binary Integrity
+ * ============================================================ */
+
+void syssec_check_deep_parse(syssec_t *s) {
+    parse_result_t dev_result;
+    parse_result_t sys_result;
+    parse_result_t bin_result;
+    binary_integrity_t integrity;
+    
+    if (!s) return;
+    
+    printf("\n");
+    check_start("Deep Parse: /dev");
+    parser_parse_dev(&dev_result, s->verbose);
+    parser_print_result("/dev", &dev_result);
+    
+    printf("\n");
+    check_start("Deep Parse: /sys");
+    parser_parse_sys(&sys_result, s->verbose);
+    parser_print_result("/sys", &sys_result);
+    
+    printf("\n");
+    check_start("Deep Parse: /bin tree");
+    parser_parse_bin(&bin_result, s->verbose);
+    parser_print_result("/bin tree", &bin_result);
+    
+    printf("\n");
+    check_start("Binary Integrity Check");
+    parser_integrity_check_standard(&integrity, s->verbose);
+    parser_integrity_report(s, &integrity);
+}
+
+
