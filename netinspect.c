@@ -21,6 +21,9 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 
+static void aggregate_ips(netinspect_t *ni);
+static void aggregate_ports(netinspect_t *ni);
+
 /* ============================================================
  * HELPERS
  * ============================================================ */
