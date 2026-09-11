@@ -175,4 +175,6 @@ void syssec_report_add(syssec_t *s, const char *category,
                        severity_t sev, status_t status,
                        const char *rec);
 
+void syssec_check_deep_parse(syssec_t *s);
+
 #endif /* SYSSEC_H */
