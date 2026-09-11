@@ -1597,10 +1597,13 @@ static void usage(const char *prog) {
     printf("  -c, --critical    Show only critical issues\n");
     printf("  -h, --help        Show this help\n");
     printf("\nExamples:\n");
-    printf("  sudo %s                    # Standard scan\n", prog);
-    printf("  sudo %s -v                 # Verbose per-item output\n", prog);
-    printf("  sudo %s -o report.html     # Save HTML report\n", prog);
-    printf("  sudo %s -c                 # Show critical only\n", prog);
+    printf("  doas %s                    # Standard scan\n", prog);
+    printf("  doas %s -v                 # Verbose per-item output\n", prog);
+    printf("  doas %s -o report.html     # Save HTML report\n", prog);
+    printf("  doas %s -c                 # Show critical only\n", prog);
+    printf("  doas %s -n                 # network only\n", prog);
+    printf("  doas %s -N                 # skip network\n", prog);
+    printf("  doas %s --net-live 5       # watch network every 5 seconds\n", prog);
     printf("\n");
 }
 
