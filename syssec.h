@@ -177,4 +177,7 @@ void syssec_report_add(syssec_t *s, const char *category,
 
 void syssec_check_deep_parse(syssec_t *s);
 
+/* Forward declaration */
+void syssec_check_network_deep(syssec_t *s);
+
 #endif /* SYSSEC_H */
