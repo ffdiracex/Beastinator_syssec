@@ -21,8 +21,8 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 
-static void aggregate_ips(netinspect_t *ni);
-static void aggregate_ports(netinspect_t *ni);
+//static void aggregate_ips(netinspect_t *ni);
+//static void aggregate_ports(netinspect_t *ni);
 
 /* ============================================================
  * HELPERS
@@ -354,7 +354,8 @@ static net_ip_t* find_or_add_ip(net_snapshot_t *snap, const char *addr) {
     return ip;
 }
 
-static void aggregate_ips(netinspect_t *ni) {
+//old: static void aggregate_ips(netinspect_t *ni) {}
+void netinspect_aggregate_ips(netinspect_t *ni) {
     net_snapshot_t *snap = &ni->current;
     
     snap->ip_count = 0;
@@ -430,7 +431,8 @@ static net_port_t* find_or_add_port(net_snapshot_t *snap, int port,
     return p;
 }
 
-static void aggregate_ports(netinspect_t *ni) {
+//old: static void aggregate_ports(netinspect_t *ni) {}
+void netinspect_aggregate_ports(netinspect_t *ni) {
     net_snapshot_t *snap = &ni->current;
     snap->port_count = 0;
     
