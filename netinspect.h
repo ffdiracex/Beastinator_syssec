@@ -222,6 +222,8 @@ void netinspect_print_ports(netinspect_t *ni);
 void netinspect_print_alerts(netinspect_t *ni);
 void netinspect_print_summary(netinspect_t *ni);
 void netinspect_print_full(netinspect_t *ni);
+void netinspect_aggregate_ips(netinspect_t *ni);
+void netinspect_aggregate_ports(netinspect_t *ni);
 
 /* Integration with syssec */
 void netinspect_report(netinspect_t *ni, syssec_t *s);
