@@ -42,8 +42,8 @@ void syssec_check_network_deep(syssec_t *s) {
     }
     
     /* Aggregate */
-    aggregate_ips(&ni);
-    aggregate_ports(&ni);
+    netinspect_aggregate_ips(&ni);
+    netinspect_aggregate_ports(&ni);
     
     /* Analyze */
     netinspect_analyze(&ni);
