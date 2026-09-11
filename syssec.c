@@ -1338,11 +1338,11 @@ void syssec_scan(syssec_t *s) {
     syssec_check_ttys(s);
     printf("\n");
     
-    syssec_check_network(s);
-    printf("\n");
+   // syssec_check_network(s);
+   // printf("\n");
     
-    syssec_check_network_deep(s); // NETWORK
-    printf("\n");
+  //  syssec_check_network_deep(s); // NETWORK
+  //  printf("\n");
     
     syssec_check_services(s);
     printf("\n");
@@ -1364,7 +1364,9 @@ void syssec_scan(syssec_t *s) {
 
     syssec_check_deep_parse(s);
     printf("\n");
-    
+
+    if (!skip_network) { syssec_check_network(s); syssec_check_network_deep(s); }
+  
     syssec_log(LOG_INFO, "Scan complete: %d checks (%d passed, %d warnings, %d failed)",
                s->count, s->passed, s->warnings, s->failures);
 }
