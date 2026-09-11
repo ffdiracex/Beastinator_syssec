@@ -1696,8 +1696,8 @@ int main(int argc, char **argv) {
         syssec_log(LOG_WARNING, "Not running as root - some checks will be limited");
     }
     
-    syssec_init(&syssec, verbose);
-    syssec_scan(&syssec);
+   // syssec_init(&syssec, verbose);
+  //  syssec_scan(&syssec, NULL);
     
     if (critical_only) {
         syssec_print_critical(&syssec);
