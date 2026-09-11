@@ -166,4 +166,13 @@ int  syssec_save_report(syssec_t *s, const char *path);
 
 void syssec_log(log_level_t level, const char *fmt, ...);
 
+/*
+ * syssec_report_add - Public wrapper for adding a result
+ * (used by parser.c to inject findings)
+ */
+void syssec_report_add(syssec_t *s, const char *category,
+                       const char *name, const char *desc,
+                       severity_t sev, status_t status,
+                       const char *rec);
+
 #endif /* SYSSEC_H */
