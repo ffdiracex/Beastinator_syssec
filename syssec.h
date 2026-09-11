@@ -136,7 +136,7 @@ typedef struct {
 
 void syssec_init(syssec_t *s, int verbose);
 void syssec_free(syssec_t *s);
-void syssec_scan(syssec_t *s);
+void syssec_scan(syssec_t *s, int skip_network);
 
 /* Individual checks */
 void syssec_check_system(syssec_t *s);
