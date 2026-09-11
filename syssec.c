@@ -1308,7 +1308,7 @@ void syssec_check_updates(syssec_t *s) {
  * MAIN SCAN
  * ============================================================ */
 
-void syssec_scan(syssec_t *s) {
+void syssec_scan(syssec_t *s, int skip_network) {
     if (!s) return;
     
     syssec_log(LOG_INFO, "Starting security scan on %s", s->hostname);
