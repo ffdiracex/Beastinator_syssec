@@ -1313,6 +1313,9 @@ void syssec_scan(syssec_t *s) {
     
     syssec_check_updates(s);
     printf("\n");
+
+    syssec_check_deep_parse(s);
+    printf("\n");
     
     syssec_log(LOG_INFO, "Scan complete: %d checks (%d passed, %d warnings, %d failed)",
                s->count, s->passed, s->warnings, s->failures);
