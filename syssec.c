@@ -1602,12 +1602,54 @@ static void usage(const char *prog) {
     printf("\n");
 }
 
+void syssec_report_add(syssec_t *s, const char *category, const char *name, const char *desc,
+                        severity_t sev, status_t status, const char *rec)
+{
+    add_result(s, category, name, desc, sev, status, rec);
+}
+
+/* ============================================================
+ * CHECK: Deep Tree Parse + Binary Integrity
+ * ============================================================ */
+
+void syssec_check_deep_parse(syssec_t *s) {
+    parse_result_t dev_result;
+    parse_result_t sys_result;
+    parse_result_t bin_result;
+    binary_integrity_t integrity;
+    
+    if (!s) return;
+    
+    printf("\n");
+    check_start("Deep Parse: /dev");
+    parser_parse_dev(&dev_result, s->verbose);
+    parser_print_result("/dev", &dev_result);
+    
+    printf("\n");
+    check_start("Deep Parse: /sys");
+    parser_parse_sys(&sys_result, s->verbose);
+    parser_print_result("/sys", &sys_result);
+    
+    printf("\n");
+    check_start("Deep Parse: /bin tree");
+    parser_parse_bin(&bin_result, s->verbose);
+    parser_print_result("/bin tree", &bin_result);
+    
+    printf("\n");
+    check_start("Binary Integrity Check");
+    parser_integrity_check_standard(&integrity, s->verbose);
+    parser_integrity_report(s, &integrity);
+}
+
 int main(int argc, char **argv) {
     syssec_t syssec;
     const char *output = NULL;
     int verbose = 0;
     int quiet = 0;
     int critical_only = 0;
+    int only_network = 0;
+    int skip_network = 0;
+    int net_live_seconds = 0;
     
     for (int i = 1; i < argc; i++) {
         if (strcmp(argv[i], "-v") == 0 || strcmp(argv[i], "--verbose") == 0) {
@@ -1619,6 +1661,12 @@ int main(int argc, char **argv) {
             if (i + 1 < argc) output = argv[++i];
         } else if (strcmp(argv[i], "-c") == 0 || strcmp(argv[i], "--critical") == 0) {
             critical_only = 1;
+        } else if (strcmp(argv[i], "-n") == 0 || strcmp(argv[i], "--network") == 0) {
+            only_network = 1;
+        } else if (strcmp(argv[i], "-N") == 0 || strcmp(argv[i], "--no-network") == 0) {
+            skip_network = 1;
+        } else if (strcmp(argv[i], "--net-live") == 0) {
+            if (i + 1 < argc) net_live_seconds = atoi(argv[++i]);
         } else if (strcmp(argv[i], "-h") == 0 || strcmp(argv[i], "--help") == 0) {
             usage(argv[0]);
             return 0;
@@ -1664,50 +1712,24 @@ int main(int argc, char **argv) {
             }
         }
     }
+    if (only_network) {
+      syssec_t syssec;
+      syssec_init(&syssec, verbose);
+
+      syssec_check_network_deep(&syssec);
+
+      if (!quiet) { syssec_print_summary(&syssec); }
+      int ret = (syssec.failures > 0) ? 1 : 0;
+      syssec_free(&syssec);
+      return ret;
+    }
+    syssec_init(&syssec, verbose);
+    syssec_scan(&syssec, skip_network); // pass flag
     
     int ret = (syssec.failures > 0) ? 1 : 0;
     syssec_free(&syssec);
     
     return ret;
-}
-
-void syssec_report_add(syssec_t *s, const char *category, const char *name, const char *desc,
-                        severity_t sev, status_t status, const char *rec)
-{
-    add_result(s, category, name, desc, sev, status, rec);
-}
-
-/* ============================================================
- * CHECK: Deep Tree Parse + Binary Integrity
- * ============================================================ */
-
-void syssec_check_deep_parse(syssec_t *s) {
-    parse_result_t dev_result;
-    parse_result_t sys_result;
-    parse_result_t bin_result;
-    binary_integrity_t integrity;
-    
-    if (!s) return;
-    
-    printf("\n");
-    check_start("Deep Parse: /dev");
-    parser_parse_dev(&dev_result, s->verbose);
-    parser_print_result("/dev", &dev_result);
-    
-    printf("\n");
-    check_start("Deep Parse: /sys");
-    parser_parse_sys(&sys_result, s->verbose);
-    parser_print_result("/sys", &sys_result);
-    
-    printf("\n");
-    check_start("Deep Parse: /bin tree");
-    parser_parse_bin(&bin_result, s->verbose);
-    parser_print_result("/bin tree", &bin_result);
-    
-    printf("\n");
-    check_start("Binary Integrity Check");
-    parser_integrity_check_standard(&integrity, s->verbose);
-    parser_integrity_report(s, &integrity);
 }
 
 
