@@ -9,6 +9,7 @@
 
 #include "syssec.h"
 #include "parser.h"
+#include "netinspect.h"
 
 /* ============================================================
  * GLOBAL STATE
@@ -17,9 +18,48 @@
 static log_level_t g_log_level = LOG_INFO;
 static int g_quiet = 0;
 
+void syssec_check_network_deep(syssec_t *s) {
+    netinspect_t ni;
+    
+    if (!s) return;
+    
+    printf("\n");
+    check_start("Deep Network Inspection");
+    
+    netinspect_init(&ni, s->verbose);
+    
+    /* Scan */
+    if (netinspect_scan(&ni) != 0) {
+        add_result(s, "Network-Deep", "Scan",
+                   "Failed to scan network",
+                   SEV_WARNING, STATUS_WARN, NULL);
+        return;
+    }
+    
+    /* Aggregate */
+    aggregate_ips(&ni);
+    aggregate_ports(&ni);
+    
+    /* Analyze */
+    netinspect_analyze(&ni);
+    
+    /* Print full report if verbose */
+    if (s->verbose) {
+        netinspect_print_full(&ni);
+    } else {
+        netinspect_print_summary(&ni);
+    }
+    
+    /* Report to syssec */
+    netinspect_report(&ni, s);
+    
+    netinspect_free(&ni);
+}
+
 /* ============================================================
  * LOGGING
  * ============================================================ */
+
 
 void syssec_log(log_level_t level, const char *fmt, ...) {
     va_list args;
@@ -1294,6 +1334,9 @@ void syssec_scan(syssec_t *s) {
     printf("\n");
     
     syssec_check_network(s);
+    printf("\n");
+    
+    syssec_check_network_deep(s); // NETWORK
     printf("\n");
     
     syssec_check_services(s);
