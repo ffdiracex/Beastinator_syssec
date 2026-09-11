@@ -17,6 +17,11 @@
 
 static log_level_t g_log_level = LOG_INFO;
 static int g_quiet = 0;
+static void check_start(const char *fmt, ...);
+static void add_result(syssec_t *s, const char *category, const char *name, const char *desc,
+                severity_t sev, status_t status, const char *rec);
+
+
 
 void syssec_check_network_deep(syssec_t *s) {
     netinspect_t ni;
