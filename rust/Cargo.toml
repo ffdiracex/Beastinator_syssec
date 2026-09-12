@@ -1,7 +1,7 @@
 [package]
 name = "syssec"
 version = "1.1.0"
-edition = "2026"
+edition = "2024"
 description = "FreeBSD System Security Scanner"
 
 [[bin]]
