@@ -1,7 +1,7 @@
 //! core scanner state and result manangement for FreeBSD
 //!
 use crate::colors::*;
-use libc::{c_char, gid_t, mode_t, off_t, uid_t, user_regs_struct};
+use libc::{c_char, gid_t, mode_t, off_t, uid_t};
 use std::ffi::CStr;
 use std::fmt;
 
@@ -119,8 +119,8 @@ impl Drop for Syssec {
 
 //logging
 use std::sync::atomic::{AtomicI32, AtomicBool, Ordering};
-static G_LOG_LEVEL: AtomicI32 = AtomicI32::new(LogLevel::Info as i32);
-static G_QUIET: AtomicBool = AtomicBool::new(false);
+pub const G_LOG_LEVEL: AtomicI32 = AtomicI32::new(LogLevel::Info as i32);
+pub const G_QUIET: AtomicBool = AtomicBool::new(false);
 
 pub fn set_log_level(l: LogLevel) { G_LOG_LEVEL.store(l as i32, Ordering::SeqCst); }
 pub fn set_quiet(q: bool) { G_QUIET.store(q, Ordering::SeqCst); }
@@ -140,7 +140,7 @@ macro_rules!  syssec_log {
             };
             let now = std::time::SystemTime::now()
                 .duration_since(std::time::UNIX_EPOCH).unwrap().as_secs();
-            let tm = local_time_hms(now);
+            let tm = local_time_hms(now.try_into().unwrap());
             eprintln!("{}{} {:<7}{} {}{}{}",
                 crate::colors::DIM, tm, name, crate::colors::RESET, color,
                     format!($($arg)*), crate::colors::RESET);
@@ -150,7 +150,7 @@ macro_rules!  syssec_log {
 
 pub(crate) use syssec_log;
 
-fn local_time_hms(secs: i64) -> String {
+pub fn local_time_hms(secs: i64) -> String {
     let mut tm: libc::tm = unsafe { std::mem::zeroed() };
     let t: libc::time_t = secs as libc::time_t;
     unsafe { libc::localtime_r(&t, &mut tm); }
