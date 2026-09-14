@@ -4,7 +4,7 @@
 
 <div align="center">
 
-# Project Name
+# Beastinator
 
 **A dual-implementation toolkit — reference C11 core, safe Rust rewrite.**
 
