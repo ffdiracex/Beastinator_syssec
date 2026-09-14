@@ -23,10 +23,10 @@
 A short paragraph on what the project does, and why there are two
 implementations. Both are kept behavior-compatible and pass the same fixtures.
 
-| Implementation | Language | Source      | Binary               |
-|:---------------|:--------:|:------------|:---------------------|
-| Reference      | C11      | `src/c/`    | `build/app`          |
-| Rewrite        | Rust     | `src/rust/` | `target/release/app` |
+| Implementation | Language | Source      |
+|:---------------|:--------:|:------------|
+| Reference      | C11      | `src/  `    |
+| Rewrite        | Rust     | `src/rust/` |
 
 ---
 
