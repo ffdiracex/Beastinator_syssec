@@ -1,10 +1,10 @@
-# SYSSEC
+# Beastinator Syssec
 
 **A FreeBSD security audit and system inspection tool, written in Rust.**
 
-SYSSEC performs a comprehensive, non-invasive security scan of a FreeBSD system — users, processes, filesystem permissions, disks, devices, network sockets, kernel state, SSH configuration, SUID binaries, and binary integrity. It produces a human-readable console report, per-item verbose output, or a self-contained HTML report you can archive or share.
+Beastinator Syssec performs a comprehensive, non-invasive security scan of a FreeBSD system — users, processes, filesystem permissions, disks, devices, network sockets, kernel state, SSH configuration, SUID binaries, and binary integrity. It produces a human-readable console report, per-item verbose output, or a self-contained HTML report you can archive or share.
 
-The original implementation was a C program using native BSD syscalls; this is a full Rust rewrite using the `libc` crate for direct syscall access on `x86_64-unknown-freebsd` and `aarch64-unknown-freebsd`.
+The original implementation was a C program using native BSD syscalls, see src/c; this is a full Rust rewrite using the `libc` crate for direct syscall access on `x86_64-unknown-freebsd` and `aarch64-unknown-freebsd`.
 
 ---
 
