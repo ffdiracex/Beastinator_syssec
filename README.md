@@ -307,7 +307,7 @@ This project is a direct Rust rewrite of a C codebase that used native BSD sysca
 ## Project layout
 
 ```
-src/
+src/rust/
 ├── main.rs          # Argument parsing, dispatch, exit codes
 ├── colors.rs        # ANSI escape constants
 ├── syssec.rs        # Core Syssec struct, logging, sysctl helpers, result types
@@ -315,6 +315,14 @@ src/
 ├── parser.rs        # Deep tree walker + binary integrity (SHA-256)
 ├── netinspect.rs    # Live network inspection (sockstat, alerts, diffs)
 └── report.rs        # Banner, summary, results, HTML export
+
+src/c/
+├── parser.c         # parser implementation for /sys, /dev etc...
+├── parser.h        # header file for parser implementation
+├── syssec.c        # main implementation of the application
+├── syssec.h        # main header file for the main executable
+├── netinspect.c    # implementation for netinspection
+├── netinspect.h    # header file for netinspect.c definitions and signatures 
 ```
 
 Each module corresponds to one source file from the original C project, so a side-by-side reading is straightforward.
