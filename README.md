@@ -66,7 +66,7 @@ No third-party FreeBSD packages are required beyond the Rust toolchain.
 Clone the repository:
 
 ```sh
-git clone https://github.com/your-org/syssec.git
+git clone https://github.com/ffdiracex/Beastinator_syssec.git
 cd syssec
 ```
 
