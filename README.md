@@ -4,43 +4,35 @@
 
 <div align="center">
 
-<img src="assets/banner.svg" alt="Project Name — C & Rust" width="100%" />
+# Project Name
 
-<br/>
+**A dual-implementation toolkit — reference C11 core, safe Rust rewrite.**
 
-<!-- Shields.io badges -->
 [![C](https://img.shields.io/badge/C-C11-A8B9CC?style=for-the-badge&logo=c&logoColor=white)](https://en.wikipedia.org/wiki/C11_(C_standard_revision))
 [![Rust](https://img.shields.io/badge/Rust-1.70+-000000?style=for-the-badge&logo=rust&logoColor=white)](https://www.rust-lang.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)](LICENSE)
-[![Build](https://img.shields.io/github/actions/workflow/status/USER/REPO/ci.yml?style=for-the-badge&label=CI)](https://github.com/USER/REPO/actions)
-[![Release](https://img.shields.io/github/v/release/USER/REPO?style=for-the-badge&color=blueviolet)](https://github.com/USER/REPO/releases)
-[![Stars](https://img.shields.io/github/stars/USER/REPO?style=for-the-badge&color=gold)](https://github.com/USER/REPO/stargazers)
-
-<br/>
-
-> **A dual-implementation toolkit.** Reference C11 core, safe Rust rewrite.
-> Byte-for-byte compatible. Same tests. Same output.
+[![Platform](https://img.shields.io/badge/Platform-Linux%20%7C%20macOS%20%7C%20Windows-4EAA25?style=for-the-badge&logo=linux&logoColor=white)](https://github.com/USER/REPO)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen?style=for-the-badge)](CONTRIBUTING.md)
 
 </div>
 
 ---
 
-## ▍ Overview
+## Overview
 
 A short paragraph on what the project does, and why there are two
-implementations (embedded portability in C, memory safety + concurrency in Rust).
-Both are kept behavior-compatible and pass the same fixture suite.
+implementations. Both are kept behavior-compatible and pass the same fixtures.
 
-| Implementation | Language | Source       | Binary              |
-|:---------------|:--------:|:-------------|:--------------------|
-| Reference      | C11      | `src/c/`     | `build/app`         |
-| Rewrite        | Rust     | `src/rust/`  | `target/release/app`|
+| Implementation | Language | Source      | Binary               |
+|:---------------|:--------:|:------------|:---------------------|
+| Reference      | C11      | `src/c/`    | `build/app`          |
+| Rewrite        | Rust     | `src/rust/` | `target/release/app` |
 
 ---
 
-## ▍ Installation
+## Installation
 
-### 🅲 From source — C
+### C — from source
 
 ```sh
 git clone https://github.com/USER/REPO.git
@@ -49,7 +41,7 @@ make -C src/c
 sudo make -C src/c install        # optional
 ```
 
-### 🦀 From source — Rust
+### Rust — from source
 
 ```sh
 git clone https://github.com/USER/REPO.git
@@ -60,7 +52,7 @@ cargo install --path .            # optional
 
 ---
 
-## ▍ Usage
+## Usage
 
 ```sh
 # C build
@@ -88,9 +80,9 @@ Options:
 
 ---
 
-## ▍ API Reference
+## API Reference
 
-### C API — `include/app.h`
+### C — `include/app.h`
 
 ```c
 /* Initialize the library. Returns 0 on success, -1 on error. */
@@ -103,7 +95,7 @@ size_t app_process(uint8_t *buf, size_t len, unsigned flags);
 void app_shutdown(void);
 ```
 
-### Rust API — crate `app`
+### Rust — crate `app`
 
 ```rust
 use app::{Config, Processor};
@@ -119,7 +111,7 @@ assert_eq!(out, b"HELLO");
 
 ---
 
-## ▍ Building & Testing
+## Building & Testing
 
 ```sh
 # C test suite
@@ -128,19 +120,15 @@ make -C src/c test
 # Rust test suite
 cargo test --manifest-path src/rust/Cargo.toml
 
-# Parity check: both implementations must agree on fixtures
+# Parity check — both implementations must agree on fixtures
 ./scripts/parity-check.sh
 ```
 
 ---
 
-<div align="center">
+## License
 
-<sub>
-Built with <b>C</b> and <b>Rust</b> · MIT Licensed · <a href="LICENSE">LICENSE</a>
-</sub>
-
-
+MIT — see [LICENSE](LICENSE).
 
 !HACKER's NOTE!
 1. cc -Wall -Wextra -O2 -c parser.c -o parser.o
@@ -150,4 +138,3 @@ Built with <b>C</b> and <b>Rust</b> · MIT Licensed · <a href="LICENSE">LICENSE
 5. for unaccessed sections of the report parsing, use elevated user, i.e. root: doas ./syssec -v -o report.html
 6. to configure doas, write "permit persist :wheel" OR for a specific user "permit persist john" in the conf file located in /usr/local/etc/doas.conf
 
-</div>
