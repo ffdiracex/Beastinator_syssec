@@ -1,6 +1,9 @@
-# test
-!TESTING!
+# Beastinator
+> Beastinator, The Modern FreeBSD malware analysis and security audit tool made for your safety!
 
+[![C Build](https://github.com/ffdiracex/Beastinator_syssec/actions/workflows/c.yml/badge.svg)](https://github.com/ffdiracex/Beastinator_syssec/actions/workflows/c.yml)
+
+!HACKER's NOTE!
 1. cc -Wall -Wextra -O2 -c parser.c -o parser.o
 2. cc -Wall -Wextra -O2 parser.c syssec.c -o syssec
 3. ./syssec , for verbose: ./syssec -v, to save report: ./syssec -o FILE
