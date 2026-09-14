@@ -35,7 +35,7 @@ implementations. Both are kept behavior-compatible and pass the same fixtures.
 ### C — from source
 
 ```sh
-git clone https://github.com/USER/REPO.git
+git clone https://github.com/ffdiracex/Beastinator_syssec.git
 cd REPO
 make -C src/c
 sudo make -C src/c install        # optional
@@ -44,8 +44,8 @@ sudo make -C src/c install        # optional
 ### Rust — from source
 
 ```sh
-git clone https://github.com/USER/REPO.git
-cd REPO/src/rust
+git clone https://github.com/ffdiracex/Beastinator_syssec.git
+cd Beastinator_syssec/src/rust
 cargo build --release
 cargo install --path .            # optional
 ```
