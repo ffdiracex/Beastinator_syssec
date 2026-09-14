@@ -96,7 +96,7 @@ target/release/syssec
 Copy the binary somewhere on your `$PATH`:
 
 ```sh
-sudo install -m 0755 target/release/syssec /usr/local/bin/syssec
+doas install -m 0755 target/release/syssec /usr/local/bin/syssec
 ```
 
 Or use `cargo install` (installs to `~/.cargo/bin` by default):
@@ -133,37 +133,37 @@ Options:
 Standard scan with summary output:
 
 ```sh
-sudo syssec
+doas syssec
 ```
 
 Verbose per-item output — shows every check as it runs:
 
 ```sh
-sudo syssec -v
+doas syssec -v
 ```
 
 Save a self-contained HTML report:
 
 ```sh
-sudo syssec -o /var/log/syssec-$(date +%F).html
+doas syssec -o /var/log/syssec-$(date +%F).html
 ```
 
 Only show critical failures — useful in a cron job or `motd` script:
 
 ```sh
-sudo syssec -c
+doas syssec -c
 ```
 
 Skip the network checks if you're running in a restricted or air-gapped context:
 
 ```sh
-sudo syssec -N
+doas syssec -N
 ```
 
 Run only the deep network inspection:
 
 ```sh
-sudo syssec -n
+doas syssec -n
 ```
 
 ### Scheduled scans
@@ -269,7 +269,7 @@ Suitable for emailing, archiving, or attaching to a ticket.
 Useful in scripts:
 
 ```sh
-if ! sudo syssec -c -q; then
+if ! doas syssec -c -q; then
     echo "syssec found critical issues" | mail -s "syssec alert" root
 fi
 ```
@@ -288,7 +288,7 @@ SYSSEC runs as an ordinary user, but many checks return `Unknown` or are skipped
 | Deep network (`sockstat`) | Needs to see all sockets. |
 | Disk `ioctl(DIOCGMEDIASIZE)` | Needs read access to `/dev/da*`, `/dev/ada*`, etc. |
 
-The scanner prints a warning at startup if it isn't running as root. For a complete audit, run with `sudo` or `doas`.
+The scanner prints a warning at startup if it isn't running as root. For a complete audit, run with `doas` or `sudo`.
 
 ---
 
