@@ -2,6 +2,8 @@
 > Beastinator, The Modern FreeBSD malware analysis and security audit tool made for your safety!
 
 [![C Build](https://github.com/ffdiracex/Beastinator_syssec/actions/workflows/c.yml/badge.svg)](https://github.com/ffdiracex/Beastinator_syssec/actions/workflows/c.yml)
+[![Rust Build](https://github.com/ffdiracex/Beastinator_syssec/actions/workflows/rust.yml/badge.svg)](https://github.com/ffdiracex/Beastinator_syssec/actions/workflows/rust.yml)
+[![License: MIT](https://img.shields.io/badge/License-BSD_3_clause-green)](LICENSE)
 
 !HACKER's NOTE!
 1. cc -Wall -Wextra -O2 -c parser.c -o parser.o
